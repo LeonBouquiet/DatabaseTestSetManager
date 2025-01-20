@@ -11,18 +11,18 @@ Currently supports a combination of MSTest, SQL Server and Entity Framework Core
 3. Create a unittest class and have it derive from DatabaseTestBase<TDbContext>, where `TDbContext` is your EF Core `DbContext`:
 
 ```
-	public class ProductRepositoryTest: DatabaseTestBase<AcmeDbContext>
+public class ProductRepositoryTest: DatabaseTestBase<AcmeDbContext>
+{
+	public override string ConnectionString => "Server=(LocalDB)\\MSSQLLocalDB;Initial Catalog=AcmeUnitTestDB;Integrated security=True;TrustServerCertificate=True";
+
+	public override void OnDefineTestSets()
 	{
-		public override string ConnectionString => "Server=(LocalDB)\\MSSQLLocalDB;Initial Catalog=AcmeUnitTestDB;Integrated security=True;TrustServerCertificate=True";
-
-		public override void OnDefineTestSets()
-		{
-			TestSetManager.DefineTestSet("Default", setup =>
-				 setup.FromAllEmbeddedSqlScripts(inAssemblyThatDefines: this));
-		}
-
-		// Test methods go here...
+		TestSetManager.DefineTestSet("Default", setup =>
+			 setup.FromAllEmbeddedSqlScripts(inAssemblyThatDefines: this));
 	}
+
+	// Test methods go here...
+}
 ```
 
 That's all there is to it to have your unittest database be initialized with the same data before each unittest.
@@ -30,17 +30,17 @@ That's all there is to it to have your unittest database be initialized with the
  That is, if you define a unittest like this:
 
 ```
-		[TestMethod]
-		public async Task GetProducts_ReturnsData()
-		{
-			ProductRepository productRepository = new ProductRepository(this.DbContext);
+	[TestMethod]
+	public async Task GetProducts_ReturnsData()
+	{
+		ProductRepository productRepository = new ProductRepository(this.DbContext);
 
-			//Act
-			List<Entities.Product> products = await productRepository.GetProducts();
+		//Act
+		List<Entities.Product> products = await productRepository.GetProducts();
 
-			//Assert
-			Assert.IsTrue(products.Any());
-		}
+		//Assert
+		Assert.IsTrue(products.Any());
+	}
 ```
 The DatabaseTestSetManager ensures that the sql scripts are run against your unittest database before the first unittest. 
 
@@ -48,9 +48,9 @@ After that, by default, every unittest is run inside a SQL Server transaction th
 
 You can control this behaviour by adding a `DatabaseTestSet` attribute to your unittest method (or class or assembly), specifying the name of the TestSet to use and how any changes should be cleaned up. The default values used are:
 
-		[DatabaseTestSet("Default", CleanUpChanges = DatabaseCleanUpChanges.ByRollback)]
-		public async Task GetProducts_ReturnsData()
-		{
+	[DatabaseTestSet("Default", CleanUpChanges = DatabaseCleanUpChanges.ByRollback)]
+	public async Task GetProducts_ReturnsData()
+	{
 			...
 
 For `DatabaseCleanUpChanges`, three values are supported:
