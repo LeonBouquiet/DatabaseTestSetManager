@@ -51,7 +51,7 @@ You can control this behaviour by adding a `DatabaseTestSet` attribute to your u
 	[DatabaseTestSet("Default", CleanUpChanges = DatabaseCleanUpChanges.ByRollback)]
 	public async Task GetProducts_ReturnsData()
 	{
-			...
+		...
 
 For `DatabaseCleanUpChanges`, three values are supported:
 1. `ByRollback` - The unittest is wrapped inside a SQL transaction, and at the end this transaction is rolled back so that any changes are reverted as well. Is very fast and usually the best choice, unless the tested code manages its own SQL transactions - then use ByReinitialize instead.
