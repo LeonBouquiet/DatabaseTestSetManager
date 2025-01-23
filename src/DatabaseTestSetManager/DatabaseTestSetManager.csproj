@@ -15,6 +15,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Description>Painlessly and quickly bring your test database into the correct state before each unit test.</Description>
     <PackageTags>unittest;database;entity-framework-core;efcore;mstest;SQL Server;LocalDB</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
