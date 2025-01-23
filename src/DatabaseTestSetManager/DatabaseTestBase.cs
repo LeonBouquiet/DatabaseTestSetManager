@@ -88,7 +88,7 @@ namespace DatabaseTestSetManager
 			string fullyQualifiedTestClassName, string methodName)
 		{
 			//Resolve the class name and method name to the Assembly, Type and MethodInfo of the given unittest method.
-			Type testClass = Type.GetType(fullyQualifiedTestClassName, throwOnError: true)!;
+			Type testClass = GetTypeFromAppDomain(fullyQualifiedTestClassName);
 			Assembly testAsm = testClass.Assembly;
 			MethodInfo? testMethod = testClass.GetMethod(methodName);       //Can return null or throw an AmbiguousMatchException.
 			if (testMethod == null)
@@ -111,6 +111,31 @@ namespace DatabaseTestSetManager
 				.CleanUpChanges;
 
 			return (testSetName, cleanUpChanges);
+		}
+
+		/// <summary>
+		/// Returns the Type for the given <paramref name="fullyQualifiedClassName"/> by scanning through all Assemblies 
+		/// loaded in the AppDomain, or throws an ArgumentException if not found.
+		/// </summary>
+		/// <param name="fullyQualifiedClassName">A class name with its namespace, e.g. "AcmeCorp.UnitTest.ProductRepositoryTest".</param>
+		private static Type GetTypeFromAppDomain(string fullyQualifiedClassName)
+		{
+			//Based on https://stackoverflow.com/a/11811046
+
+			//See if we can find it in the current assembly or in mscorlib.
+			Type? type = Type.GetType(fullyQualifiedClassName, throwOnError: false);
+			if (type != null) 
+				return type;
+
+			//Search all loaded assemblies
+			foreach (Assembly asm in AppDomain.CurrentDomain.GetAssemblies())
+			{
+				type = asm.GetType(fullyQualifiedClassName, throwOnError: false);
+				if (type != null)
+					return type;
+			}
+
+			throw new ArgumentException($"Couldn't locate the type \"{fullyQualifiedClassName}\" in the current AppDomain.");
 		}
 
 		/// <summary>

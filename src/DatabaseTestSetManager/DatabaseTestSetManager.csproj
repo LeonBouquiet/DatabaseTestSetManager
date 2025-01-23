@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/LeonBouquiet/DatabaseTestSetManager</PackageProjectUrl>
     <PackageId>DatabaseTestSetManager</PackageId>
     <Title></Title>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <RepositoryUrl>https://github.com/LeonBouquiet/DatabaseTestSetManager</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Description>Painlessly and quickly bring your test database into the correct state before each unit test.</Description>
