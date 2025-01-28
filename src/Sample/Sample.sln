@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme", "Acme\Acme.csproj", "{2CCD22B8-887D-4CEB-9682-2BA238A411D9}"
 EndProject
@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.UnitTest", "Acme.UnitTest\Acme.UnitTest.csproj", "{C1C5C528-C872-40BB-9DEA-1458A7AA650F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +30,10 @@ Global
 		{63446376-F690-46BB-B76E-4272F2D49AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63446376-F690-46BB-B76E-4272F2D49AEF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{63446376-F690-46BB-B76E-4272F2D49AEF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C1C5C528-C872-40BB-9DEA-1458A7AA650F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1C5C528-C872-40BB-9DEA-1458A7AA650F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1C5C528-C872-40BB-9DEA-1458A7AA650F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1C5C528-C872-40BB-9DEA-1458A7AA650F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

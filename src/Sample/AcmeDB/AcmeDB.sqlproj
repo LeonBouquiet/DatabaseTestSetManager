@@ -63,4 +63,7 @@
   <ItemGroup>
     <Build Include="Tables\Product.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="AcmeDB.UnitTest.publish.xml" />
+  </ItemGroup>
 </Project>
