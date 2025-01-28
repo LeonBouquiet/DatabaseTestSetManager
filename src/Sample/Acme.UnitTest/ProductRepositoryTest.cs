@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Acme.UnitTest;
 
+/// <summary>
+/// Tests the ProductRepository.
+/// </summary>
 [TestClass]
 public class ProductRepositoryTest: DatabaseTestBase<AcmeDbContext>
 {
@@ -22,10 +25,11 @@ public class ProductRepositoryTest: DatabaseTestBase<AcmeDbContext>
 	/// <summary>
 	/// GetAllProducts() should return all Products in the database.
 	/// </summary>
-	[TestMethod]
+	[TestMethod, DatabaseTestSet(CleanUpChanges = DatabaseCleanUpChanges.None)]
 	public async Task GetAllProducts_ReturnsData()
 	{
-		//Act
+		//Act: Read all products from the database.
+		//Because no database changes are performed here, we can use DatabaseCleanUpChanges.None.
 		ProductRepository repository = CreateProductRepository();
 		List<Product> products = await repository.GetAllProducts();
 
@@ -53,7 +57,7 @@ public class ProductRepositoryTest: DatabaseTestBase<AcmeDbContext>
 	}
 
 	/// <summary>
-	/// AddProduct should fail if the Product.Code is already in use.
+	/// AddProduct() should fail if the Product.Code is already in use.
 	/// </summary>
 	[TestMethod, ExpectedException(typeof(DbUpdateException))]
 	public async Task AddProduct_BreaksOnDuplicateCode()
@@ -64,5 +68,29 @@ public class ProductRepositoryTest: DatabaseTestBase<AcmeDbContext>
 		//Act: Adding it should fail due to the UQ_ProductCode constraint.
 		ProductRepository repository = CreateProductRepository();
 		await repository.AddProduct(bedSprings);
+	}
+
+	/// <summary>
+	/// AddBatch() should add all Products as a single transaction.
+	/// </summary>
+	[TestMethod, DatabaseTestSet(CleanUpChanges = DatabaseCleanUpChanges.ByReinitialize)]
+	public async Task AddBatch_InsertsData()
+	{
+		//Arrange:
+		var batch = new List<Product>() { 
+			new Product() { Code = "IC", Name = "Iron Carrot" } ,
+			new Product() { Code = "IG", Name = "Iron Glue" } ,
+			new Product() { Code = "IP", Name = "Invisible Paint" } ,
+		};
+
+		//Act: Add all Products in one go, in one database transaction.
+		//This fails when using the default DatabaseCleanUpChanges.ByRollback because EF Core refuses the nested
+		//transaction; however, by using the DatabaseCleanUpChanges.ByReinitialize option, we can work around this.
+		ProductRepository repository = CreateProductRepository();
+		await repository.AddBatch(batch);
+
+		//Assert: All 3 products should have been added.
+		List<Product> products = await repository.GetAllProducts();
+		Assert.AreEqual(3, products.Count(prd => prd.Code.StartsWith("I")));
 	}
 }
