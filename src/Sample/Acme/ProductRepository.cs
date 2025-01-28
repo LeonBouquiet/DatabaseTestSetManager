@@ -20,7 +20,7 @@ public class ProductRepository(AcmeDbContext dbContext)
 	/// <summary>
 	/// Inserts the given <paramref name="product"/> into the database.
 	/// </summary>
-	public Task<int> AddProduct(Product product)
+	public Task AddProduct(Product product)
 	{
 		_dbContext.Products.Add(product);
 		return _dbContext.SaveChangesAsync();
