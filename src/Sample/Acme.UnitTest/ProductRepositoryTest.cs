@@ -30,9 +30,9 @@ public class ProductRepositoryTest: DatabaseTestBase<AcmeDbContext>
 		//Act
 		List<Product> products = await repository.GetAllProducts();
 
-		//Assert
+		//Assert: We expect to get some products, at least including the Hen Grenade.
 		Assert.IsNotNull(products);
-		Assert.IsTrue(products.Any());
+		Assert.IsNotNull(products.FirstOrDefault(prd => prd.Code == "HG"));
 	}
 
 }

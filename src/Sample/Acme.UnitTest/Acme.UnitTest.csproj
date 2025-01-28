@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestSet\1-CleanAllTables.sql" />
+    <None Remove="TestSet\2-Products.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestSet\1-CleanAllTables.sql" />
+    <EmbeddedResource Include="TestSet\2-Products.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DatabaseTestSetManager" Version="1.0.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="MSTest" Version="3.6.1" />
