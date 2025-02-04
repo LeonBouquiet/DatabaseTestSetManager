@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>true</IsPackable>
@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/LeonBouquiet/DatabaseTestSetManager</PackageProjectUrl>
     <PackageId>DatabaseTestSetManager</PackageId>
     <Title></Title>
-    <Version>1.0.4</Version>
+    <Version>1.1.0</Version>
     <RepositoryUrl>https://github.com/LeonBouquiet/DatabaseTestSetManager</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Description>Painlessly and quickly bring your test database into the correct state before each unit test.</Description>
@@ -26,16 +26,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.1">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.36">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.36" />
     <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
-  
+
 </Project>
