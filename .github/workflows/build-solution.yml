@@ -18,6 +18,12 @@ jobs:
       with:
         dotnet-version: 6.x
 
+    - name: Compose version based on GitHub run number
+      id: get_version
+      run: |
+        buildnr=$(($GITHUB_RUN_NUMBER))
+        echo "VERSION=1.1.$buildnr" >> ${GITHUB_ENV}
+
     - name: Restore dependencies
       run: dotnet restore src/DatabaseTestSetManager.sln
 
