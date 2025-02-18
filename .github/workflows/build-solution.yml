@@ -26,7 +26,7 @@ jobs:
       run: |
         $TAG = git describe --tags --abbrev=0
         $VERSION = $TAG -replace "^v", ""
-        echo "VERSION=$VERSION" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8
+        echo "VERSION=$VERSION" >> $env:GITHUB_ENV
 
     - name: Restore dependencies
       run: dotnet restore src/DatabaseTestSetManager.sln
