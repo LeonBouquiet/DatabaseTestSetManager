@@ -8,8 +8,7 @@ on:
     branches: [ "main" ]
 env:
   BuildConfiguration: "Release"
-  MajorMinor: "1.1"
-  RunNumber: ${{ env.$GITHUB_RUN_NUMBER }}
+
 
 jobs:
   build:
@@ -22,11 +21,11 @@ jobs:
       with:
         dotnet-version: 6.x
 
-    - name: Compose version based on GitHub run number
+    - name: Get Version from Git Tags
       id: get_version
       run: |
-        echo "Setting version to $MajorMinor.$RunNumber"
-        echo "VERSION=$MajorMinor.$RunNumber" >> ${GITHUB_ENV}
+        TAG=$(git describe --tags --abbrev=0 || echo "0.1.0")
+        echo "VERSION=${TAG#v}" >> $GITHUB_ENV
 
     - name: Restore dependencies
       run: dotnet restore src/DatabaseTestSetManager.sln
