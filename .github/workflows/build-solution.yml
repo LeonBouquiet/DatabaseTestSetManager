@@ -24,6 +24,7 @@ jobs:
     - name: Get Version from Git Tags (Windows)
       shell: pwsh
       run: |
+        git fetch --tags
         $TAG = git describe --tags --abbrev=0
         $VERSION = $TAG -replace "^v", ""
         echo "VERSION=$VERSION" >> $env:GITHUB_ENV
