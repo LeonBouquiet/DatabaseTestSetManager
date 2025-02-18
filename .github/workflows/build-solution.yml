@@ -33,3 +33,9 @@ jobs:
       run: dotnet build src/DatabaseTestSetManager.sln --no-restore
     - name: Test
       run: dotnet test src/DatabaseTestSetManager.sln --no-build --verbosity normal
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Binaries
+        path: src/DatabaseTestSetManager
