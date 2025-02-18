@@ -9,7 +9,7 @@ on:
 env:
   BuildConfiguration: "Release"
   MajorMinor: "1.1"
-  RunNumber: $GITHUB_RUN_NUMBER
+  RunNumber: ${{ env.$GITHUB_RUN_NUMBER }}
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
       run: dotnet restore src/DatabaseTestSetManager.sln
 
     - name: Build
-      run: dotnet build src/DatabaseTestSetManager.sln --configuration $BuildConfiguration --no-restore
+      run: dotnet build src/DatabaseTestSetManager.sln --configuration $BuildConfiguration --platform "Any CPU" --no-restore
 
     - name: Test
       run: dotnet test src/DatabaseTestSetManager.sln --no-build --verbosity normal
