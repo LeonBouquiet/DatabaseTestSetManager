@@ -6,6 +6,8 @@ on:
     branches: [ "main", "feature/*" ]
   pull_request:
     branches: [ "main" ]
+env:
+  MajorMinor: "1.1"
 
 jobs:
   build:
@@ -21,8 +23,7 @@ jobs:
     - name: Compose version based on GitHub run number
       id: get_version
       run: |
-        version=$(($GITHUB_RUN_NUMBER))
-        echo "VERSION=1.1.$version" >> ${GITHUB_ENV}
+        echo "VERSION=$MajorMinor.$GITHUB_RUN_NUMBER" >> ${GITHUB_ENV}
 
     - name: Restore dependencies
       run: dotnet restore src/DatabaseTestSetManager.sln
