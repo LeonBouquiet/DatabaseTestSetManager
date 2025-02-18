@@ -24,12 +24,12 @@ jobs:
       with:
         dotnet-version: 6.x
 
-    - name: Get Version from Git Tags (Windows)
-      shell: pwsh
-      run: |
-        git describe --tags --abbrev=0 | Tee-Object -Variable TAG
-        $VERSION = $TAG -replace "^v", ""
-        echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+    # - name: Get Version from Git Tags (Windows)
+    #   shell: pwsh
+    #   run: |
+    #     git describe --tags --abbrev=0 | Tee-Object -Variable TAG
+    #     $VERSION = $TAG -replace "^v", ""
+    #     echo "VERSION=$VERSION" >> $env:GITHUB_ENV
 
     - name: Restore dependencies
       run: dotnet restore src/DatabaseTestSetManager.sln
