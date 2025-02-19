@@ -1,12 +1,9 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-name: build-solution
+name: publish-package
 on:
   push:
-    branches: [ "foo" ]
-  # branches: [ "main", "feature/*" ]
-  # pull_request:
-  #   branches: [ "main" ]
+    branches: [ "main", "feature/*" ]
+  release:
+    types: [created]  # Triggers only when a new release is created
 env:
   BuildConfiguration: "Release"
 
@@ -45,3 +42,12 @@ jobs:
     #   with:
     #     name: Binaries
     #     path: src/DatabaseTestSetManager/bin/$BuildConfiguration
+
+  publish:
+    name: Publish NuGet Package
+    needs: build  # Ensures this runs only after build succeeds
+    # if: github.event_name == 'release'
+    runs-on: windows-latest
+    steps:
+    - name: Publish to nuGet
+      run: dotnet nuget push **\*.nupkg --source 'https://api.nuget.org/v3/index.json' --api-key ${{secrets.NUGET_TOKEN}} --skip-duplicate
