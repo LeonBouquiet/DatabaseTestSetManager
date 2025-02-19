@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-tags: true
-    #   fetch-depth: 0   # Fetch all history for all branches and tags, so "git describe" works.
+        fetch-depth: 0   # Fetch all history for all branches and tags, so "git describe" works.
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -27,6 +27,7 @@ jobs:
     - name: Get Version from Git Tags (Windows)
       shell: pwsh
       run: |
+    
         git describe --tags --abbrev=0 | Tee-Object -Variable TAG
         $VERSION = $TAG -replace "^v", ""
         echo "VERSION=$VERSION" >> $env:GITHUB_ENV
