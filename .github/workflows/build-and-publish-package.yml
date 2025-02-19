@@ -54,5 +54,5 @@ jobs:
     #     path: src/DatabaseTestSetManager/bin/$BuildConfiguration
 
     - name: Publish NuGet Package
-      if: (github.event_name == 'release' || $PublishToNuGet -eq $true)        # Only push when triggered by a release or if specified during a manual dispatch.
+      if: (github.event_name == 'release' || inputs.PublishToNuGet)        # Only push when triggered by a release or if specified during a manual dispatch.
       run: dotnet nuget push **\*.nupkg --source 'https://api.nuget.org/v3/index.json' --api-key ${{ secrets.NUGET_TOKEN }} --skip-duplicate
