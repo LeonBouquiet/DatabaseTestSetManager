@@ -35,7 +35,7 @@ jobs:
       run: dotnet restore src/DatabaseTestSetManager.sln
 
     - name: Build
-      run: dotnet build src/DatabaseTestSetManager.sln --no-restore --configuration "$BuildConfiguration"
+      run: dotnet build src/DatabaseTestSetManager.sln --no-restore --configuration $Env:BuildConfiguration
 
     - name: Test
       run: dotnet test src/DatabaseTestSetManager.sln --no-build --verbosity normal
