@@ -15,7 +15,6 @@ env:
 jobs:
   build:
     runs-on: windows-latest
-    environment: DevelopmentEnv
     steps:
     - uses: actions/checkout@v4
       with:
