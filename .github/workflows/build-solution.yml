@@ -8,7 +8,7 @@ on:
     branches: [ "main" ]
 env:
   BuildConfiguration: "Release"
-
+  Version: "1.1.1"
 
 jobs:
   build:
