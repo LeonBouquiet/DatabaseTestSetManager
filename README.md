@@ -46,6 +46,8 @@ The DatabaseTestSetManager ensures that the sql scripts are run against your uni
 
 After that, by default, every unittest is run inside a SQL Server transaction that is rolled back at the end. This ensures that no changes done by your code under test are actually persisted to the database, so that the database is back in its initial state, ready for the next unittest.
 
+## Ways to revert database changes
+
 You can control this behaviour by adding a `DatabaseTestSet` attribute to your unittest method (or class or assembly), specifying the name of the TestSet to use and how any changes should be cleaned up. The default values used are:
 
 	[DatabaseTestSet("Default", CleanUpChanges = DatabaseCleanUpChanges.ByRollback)]
@@ -58,3 +60,12 @@ For `DatabaseCleanUpChanges`, three values are supported:
 2. `ByReinitialize` - Executes the SQL scripts again to reinitialize the database. Usually slower than ByRollback but doesn't interfere with any SQL transactions from the code under test.
 3. `None` - The database is left as-is; use this only for tests that don't modify the database.
 
+## Frequently Asked Questions
+
+# Can I see a full example of how it should be used?
+
+Sure, check out the [Sample solution on GitHub](https://github.com/LeonBouquiet/DatabaseTestSetManager/tree/main/src/Sample).
+
+# Does it support parallelization?
+
+Sadly not at this moment, but hopefully I can find some time to look into that.
