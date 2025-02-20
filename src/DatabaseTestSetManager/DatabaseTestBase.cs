@@ -12,7 +12,8 @@ using Microsoft.Extensions.Configuration;
 namespace DatabaseTestSetManager
 {
 	/// <summary>
-	/// Stateful part of the unittest database support.
+	/// Stateful part of the unittest database support. Have your test classes (attributed with [TestClass]) derive from 
+	/// this to let the test database be initialized prior to each unittest.
 	/// </summary>
 	public abstract class DatabaseTestBase<TDbContext> : IDisposable where TDbContext: DbContext
 	{
@@ -39,7 +40,9 @@ namespace DatabaseTestSetManager
 		public IDbContextTransaction? EncapsulatingTransaction { get; private set; } = null;
 
 
-
+		/// <summary>
+		/// Implement this property to have it return the connection string to the test database.
+		/// </summary>
 		public abstract string ConnectionString { get; }
 
 		/// <summary>
@@ -52,8 +55,9 @@ namespace DatabaseTestSetManager
 		}
 
 		/// <summary>
-		/// Creates and returns the TDbContext to use during unittesting; it is also used to to begin/rollback transactions
-		/// with.
+		/// Creates and returns a TDbContext based on the <see cref="ConnectionString"/> to use during unittesting; this 
+		/// TDbContext is also used to to begin/rollback transactions.
+		/// Override this method if you want control over how the TDbContext is instantiated.
 		/// </summary>
 		protected virtual TDbContext CreateDbContext()
 		{
@@ -75,6 +79,10 @@ namespace DatabaseTestSetManager
 			return result;
 		}
 
+		/// <summary>
+		/// Override this method and have it call <see cref="TestSetManager.DefineTestSet()"> to define one or more 
+		/// test sets.
+		/// </summary>
 		public virtual void OnDefineTestSets()
 		{
 		}

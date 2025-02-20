@@ -26,6 +26,9 @@ namespace DatabaseTestSetManager
 		}
 	}
 
+	/// <summary>
+	/// Defines a test set that initializes the database by executing one or more .sql scripts.
+	/// </summary>
 	public class SqlScriptTestSet: TestSet
 	{
 		public List<SqlScriptPart> Parts { get; private set; } = new List<SqlScriptPart>();
@@ -53,6 +56,9 @@ namespace DatabaseTestSetManager
 				.ToList();
 		}
 
+		/// <summary>
+		/// Initializes the database by executing all sql script parts against the given <paramref name="sqlConnection"/>.
+		/// </summary>
 		public override void Apply(SqlConnection sqlConnection)
 		{
 			foreach (SqlScriptPart scriptPart in Parts)
